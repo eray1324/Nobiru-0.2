@@ -134,6 +134,34 @@ class Favorito(db.Model):
     item_id = db.Column(db.Integer)
     fecha_agregado = db.Column(db.DateTime, default=datetime.now)
 
+class Resultado(db.Model):
+    """Resultados de los cuestionarios"""
+
+    __tablename__ = 'resultados'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    usuario_id = db.Column(
+        db.Integer,
+        db.ForeignKey('usuarios.id'),
+        nullable=False
+    )
+
+    cuestionario_id = db.Column(
+        db.Integer,
+        db.ForeignKey('cuestionarios.id'),
+        nullable=False
+    )
+
+    aciertos = db.Column(db.Integer, default=0)
+    errores = db.Column(db.Integer, default=0)
+    puntos_ganados = db.Column(db.Integer, default=0)
+
+    fecha = db.Column(
+        db.DateTime,
+        default=datetime.now
+    )
+
 
 # ============================================
 # DATOS INICIALES
@@ -545,6 +573,27 @@ def crear_cuestionario():
     )
 
     db.session.add(nuevo)
+    db.session.commit()
+
+    return jsonify({'success': True})
+
+@app.route('/api/agregar-pregunta', methods=['POST'])
+@login_requerido
+def agregar_pregunta():
+
+    data = request.get_json()
+
+    nueva_pregunta = Pregunta(
+        cuestionario_id=data['cuestionario_id'],
+        texto=data['texto'],
+        opcion_a=data['a'],
+        opcion_b=data['b'],
+        opcion_c=data['c'],
+        opcion_d=data['d'],
+        respuesta_correcta=data['correcta']
+    )
+
+    db.session.add(nueva_pregunta)
     db.session.commit()
 
     return jsonify({'success': True})
