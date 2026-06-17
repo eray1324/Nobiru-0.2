@@ -94,8 +94,39 @@ document.querySelectorAll('.card-cuestionario, .post-card, .reel-card, .archivo-
 // FUNCIONES DE FAVORITOS
 // ====================================
 
-function agregarFavorito(tipo, itemId) {
-    mostrarNotificacion(`${tipo} agregado a favoritos ⭐`, 'exito');
+async function agregarFavorito(tipo, itemId) {
+
+    try {
+
+        const response = await fetch('/api/agregar-favorito', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tipo: tipo,
+                item_id: itemId
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            mostrarNotificacion('Agregado a favoritos');
+
+        } else {
+
+            mostrarNotificacion(data.error, 'error');
+
+        }
+
+    } catch (error) {
+
+        mostrarNotificacion('Error al guardar favorito', 'error');
+
+    }
+
 }
 
 function eliminarFavorito(itemId) {
