@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOBIRU - Favoritos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="modo-oscuro">
+    <div class="contenedor-app">
+        <nav class="navbar">
+            <div class="navbar-content">
+                <h1 class="navbar-logo">NOBIRU</h1>
+                <div class="navbar-usuario">
+                    <span class="nombre-usuario">👤 Usuario</span>
+                    <a href="{{ url_for('logout') }}" class="btn btn-pequeño btn-logout">Salir</a>
+                </div>
+            </div>
+        </nav>
 
+        <div class="menu-lateral">
+            <ul class="menu-lista">
+                <li><a href="{{ url_for('dashboard') }}" class="menu-item">🏠 Inicio</a></li>
+                <li><a href="{{ url_for('cuestionarios') }}" class="menu-item">📝 Cuestionarios</a></li>
+                <li><a href="{{ url_for('comunidad') }}" class="menu-item">💬 Comunidad</a></li>
+                <li><a href="{{ url_for('reels') }}" class="menu-item">🎬 Reels</a></li>
+                <li><a href="{{ url_for('biblioteca') }}" class="menu-item">📚 Biblioteca</a></li>
+                <li><a href="{{ url_for('favoritos') }}" class="menu-item activo">⭐ Favoritos</a></li>
+            </ul>
+        </div>
+
+        <main class="contenido-principal">
+            <h2>⭐ Mis Favoritos</h2>
+
+            {% if favoritos %}
+                <div class="favoritos-grid">
+                    {% for favorito in favoritos %}
+                    <div class="favorito-card">
+                        <p class="tipo-favorito">{{ favorito.tipo }}</p>
+                        <p>📌 Item #{{ favorito.item_id }}</p>
+                        <button class="btn btn-pequeño">❌ Eliminar</button>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="mensaje-vacio">
+                    <p>😊 Aún no tienes favoritos</p>
+                    <p>Comienza a guardar tus recursos favoritos</p>
+                </div>
+            {% endif %}
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
