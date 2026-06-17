@@ -38,7 +38,10 @@
                     <div class="favorito-card">
                         <p class="tipo-favorito">{{ favorito.tipo }}</p>
                         <p>📌 Item #{{ favorito.item_id }}</p>
-                        <button class="btn btn-pequeño">❌ Eliminar</button>
+                        <button class="btn btn-pequeño"
+        onclick="eliminarFavorito({{ favorito.id }})">
+    ❌ Eliminar
+</button>
                     </div>
                     {% endfor %}
                 </div>
