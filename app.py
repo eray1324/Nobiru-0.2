@@ -578,6 +578,52 @@ def resolver_cuestionario(id):
         preguntas=preguntas
     )
 
+@app.route('/calificar-cuestionario/<int:id>', methods=['POST'])
+@login_requerido
+def calificar_cuestionario(id):
+
+    preguntas = Pregunta.query.filter_by(
+        cuestionario_id=id
+    ).all()
+
+    aciertos = 0
+    errores = 0
+
+    for pregunta in preguntas:
+
+        respuesta_usuario = request.form.get(
+            f'pregunta_{pregunta.id}'
+        )
+
+        if respuesta_usuario == pregunta.respuesta_correcta:
+            aciertos += 1
+        else:
+            errores += 1
+
+    puntos = aciertos * 10 - errores * 2
+
+    usuario = Usuario.query.get(session['usuario_id'])
+
+    usuario.puntos += puntos
+
+    resultado = Resultado(
+        usuario_id=usuario.id,
+        cuestionario_id=id,
+        aciertos=aciertos,
+        errores=errores,
+        puntos_ganados=puntos
+    )
+
+    db.session.add(resultado)
+    db.session.commit()
+
+    return render_template(
+        'resultado.html',
+        aciertos=aciertos,
+        errores=errores,
+        puntos=puntos
+    )
+
 @app.route('/api/agregar-pregunta', methods=['POST'])
 @login_requerido
 def agregar_pregunta():
