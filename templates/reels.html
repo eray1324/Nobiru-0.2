@@ -5,594 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOBIRU - Reels Educativos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            background: var(--bg-card);
-            margin: 5% auto;
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideIn 0.3s;
-        }
-
-        .cerrar-modal {
-            color: var(--texto-primario);
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: var(--transicion);
-        }
-
-        .cerrar-modal:hover {
-            color: var(--amarillo);
-        }
-
-        .formulario-video {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .grupo-input {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .grupo-input label {
-            color: var(--texto-primario);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .grupo-input input,
-        .grupo-input textarea,
-        .grupo-input select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            color: var(--texto-primario);
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-
-        .grupo-input input:focus,
-        .grupo-input textarea:focus,
-        .grupo-input select:focus {
-            outline: none;
-            border-color: var(--amarillo);
-            background: rgba(255, 215, 0, 0.05);
-        }
-
-        .contenedor-grabacion {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 15px 0;
-            display: none;
-        }
-
-        .contenedor-grabacion.activo {
-            display: block;
-        }
-
-        .video-preview {
-            width: 100%;
-            border-radius: 8px;
-            background: #000;
-            margin-bottom: 15px;
-            max-height: 300px;
-        }
-
-        .botones-grabacion {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .boton-grabar {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: var(--transicion);
-            font-size: 1rem;
-        }
-
-        .boton-play {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-        }
-
-        .boton-play:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .boton-stop {
-            background: linear-gradient(135deg, #FF5252, #FF1744);
-            color: white;
-        }
-
-        .boton-stop:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 17, 68, 0.3);
-        }
-
-        .boton-play:disabled,
-        .boton-stop:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .indicador-grabacion {
-            display: none;
-            color: #FF5252;
-            font-weight: bold;
-            margin: 10px 0;
-            animation: parpadeo 1s infinite;
-        }
-
-        .indicador-grabacion.activo {
-            display: block;
-        }
-
-        @keyframes parpadeo {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .info-video {
-            background: rgba(147, 112, 219, 0.1);
-            border-left: 3px solid var(--morado);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            color: var(--texto-secundario);
-            font-size: 0.9rem;
-        }
-    </style>
 </head>
 <body class="modo-oscuro">
-    <div class="contenedor-app">
-        <nav class="navbar">
-            <div class="navbar-content">
-                <h1 class="navbar-logo">NOBIRU</h1>
-                <div class="navbar-usuario">
-                    <span class="nombre-usuario">👤 Usuario</span>
-                    <a href="{{ url_for('logout') }}" class="btn btn-pequeño btn-logout">Salir</a>
-                </div>
-            </div>
-        </nav>
 
-        <div class="menu-lateral">
-            <ul class="menu-lista">
-                <li><a href="{{ url_for('dashboard') }}" class="menu-item">🏠 Inicio</a></li>
-                <li><a href="{{ url_for('cuestionarios') }}" class="menu-item">📝 Cuestionarios</a></li>
-                <li><a href="{{ url_for('comunidad') }}" class="menu-item">💬 Comunidad</a></li>
-                <li><a href="{{ url_for('reels') }}" class="menu-item activo">🎬 Reels</a></li>
-                <li><a href="{{ url_for('biblioteca') }}" class="menu-item">📚 Biblioteca</a></li>
-                <li><a href="{{ url_for('favoritos') }}" class="menu-item">⭐ Favoritos</a></li>
-            </ul>
+<div class="contenedor-app">
+
+    <!-- Barra superior -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <h1 class="navbar-logo">NOBIRU</h1>
+
+            <div class="navbar-usuario">
+                <span class="nombre-usuario">👤 Usuario</span>
+                <a href="{{ url_for('logout') }}" class="btn btn-pequeño btn-logout">
+                    Salir
+                </a>
+            </div>
         </div>
+    </nav>
 
-        <main class="contenido-principal">
-            <h2>🎬 Reels Educativos</h2>
-
-            <div class="acciones-seccion">
-                <button class="btn btn-primario" onclick="abrirModalSubirVideo()">📹 Subir Video</button>
-                <button class="btn btn-secundario" onclick="abrirModalGrabarVideo()">🎥 Grabar Video</button>
-            </div>
-
-            <div class="filtros-reels">
-                <button class="btn-filtro activo">Todos</button>
-                <button class="btn-filtro">Matemáticas</button>
-                <button class="btn-filtro">Historia</button>
-                <button class="btn-filtro">Ciencias</button>
-                <button class="btn-filtro">Español</button>
-            </div>
-
-            <div class="reels-grid">
-                {% if reels %}
-                    {% for reel in reels %}
-                    <div class="reel-card">
-                        {% if reel.url_video %}
-                            <video class="reel-video" controls style="width: 100%; height: 200px; border-radius: 8px; background: #000;">
-                                <source src="{{ reel.url_video }}">
-                                Tu navegador no soporta videos HTML5
-                            </video>
-                        {% else %}
-                            <div class="reel-video">📹 Sin video</div>
-                        {% endif %}
-                        <h3>{{ reel.titulo }}</h3>
-                        <p>{{ reel.descripcion }}</p>
-                        <p class="categoria-reel">{{ reel.categoria }}</p>
-                        <div class="botones-reel">
-                            <button class="btn btn-pequeño">▶️ Ver</button>
-                            <button class="btn btn-pequeño">⭐ Favorito</button>
-                        </div>
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="mensaje-vacio">
-                        <p>😊 Aún no hay reels</p>
-                        <p>¡Sé el primero en crear uno!</p>
-                    </div>
-                {% endif %}
-            </div>
-        </main>
+    <!-- Menú lateral -->
+    <div class="menu-lateral">
+        <ul class="menu-lista">
+            <li><a href="{{ url_for('dashboard') }}" class="menu-item">🏠 Inicio</a></li>
+            <li><a href="{{ url_for('cuestionarios') }}" class="menu-item">📝 Cuestionarios</a></li>
+            <li><a href="{{ url_for('comunidad') }}" class="menu-item">💬 Comunidad</a></li>
+            <li><a href="{{ url_for('reels') }}" class="menu-item activo">🎬 Reels</a></li>
+            <li><a href="{{ url_for('biblioteca') }}" class="menu-item">📚 Biblioteca</a></li>
+            <li><a href="{{ url_for('favoritos') }}" class="menu-item">⭐ Favoritos</a></li>
+        </ul>
     </div>
 
-    <!-- MODAL: SUBIR VIDEO -->
-    <div id="modalSubirVideo" class="modal">
-        <div class="modal-content">
-            <span class="cerrar-modal" onclick="cerrarModal('modalSubirVideo')">&times;</span>
-            <h2 style="color: var(--amarillo); margin-bottom: 20px;">📹 Subir Video</h2>
+    <!-- Contenido -->
+    <main class="contenido-principal">
 
-            <div class="info-video">
-                <p>📌 <strong>Formatos permitidos:</strong> MP4, AVI, MOV, MKV, WebM</p>
-                <p>📌 <strong>Tamaño máximo:</strong> 100 MB</p>
-            </div>
+        <h2>🎬 Reels Educativos</h2>
 
-            <form id="formSubirVideo" class="formulario-video" onsubmit="enviarVideo(event, 'subir')">
-                <div class="grupo-input">
-                    <label for="tituloSubir">📝 Título del Video</label>
-                    <input 
-                        type="text" 
-                        id="tituloSubir" 
-                        name="titulo" 
-                        placeholder="Ej: Derivadas en Cálculo"
-                        required
-                    >
-                </div>
+        <div class="acciones-seccion">
+            <button class="btn btn-primario btn-grande"
+                    onclick="abrirModalReel()">
+                ➕ Agregar Video
+            </button>
+        </div>
 
-                <div class="grupo-input">
-                    <label for="descripcionSubir">📄 Descripción (opcional)</label>
-                    <textarea 
-                        id="descripcionSubir" 
-                        name="descripcion" 
-                        placeholder="Describe el contenido del video"
-                        rows="3"
-                    ></textarea>
-                </div>
+        <!-- Modal -->
+        <div id="modalReel" class="modal" style="display:none;">
 
-                <div class="grupo-input">
-                    <label for="categoriaSubir">📂 Categoría</label>
-                    <select id="categoriaSubir" name="categoria" required>
+            <div class="modal-contenido">
+
+                <h3>🎬 Nuevo Reel</h3>
+
+                <form id="formReel">
+
+                    <input
+                        type="text"
+                        name="titulo"
+                        placeholder="Título"
+                        required>
+
+                    <textarea
+                        name="descripcion"
+                        placeholder="Descripción"></textarea>
+
+                    <select name="categoria">
+
                         <option value="Matemáticas">Matemáticas</option>
                         <option value="Historia">Historia</option>
                         <option value="Ciencias">Ciencias</option>
                         <option value="Español">Español</option>
                         <option value="Consejos para examen">Consejos para examen</option>
-                        <option value="Variado">Variado</option>
+
                     </select>
-                </div>
 
-                <div class="grupo-input">
-                    <label for="archivoVideo">🎬 Selecciona tu video</label>
-                    <input 
-                       <input
-                       type="text"
-                       name="url_video"
-                       placeholder="Pega aquí la URL del video"
-                       required>
-                    >
-                </div>
+                    <input
+                        type="text"
+                        name="url_video"
+                        placeholder="Pega aquí la URL del video"
+                        required>
 
-                <div id="progreso" style="display: none; margin: 15px 0;">
-                    <p>Subiendo... <span id="porcentaje">0</span>%</p>
-                    <div style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
-                        <div id="barraProgreso" style="background: var(--amarillo); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                    <div class="botones-modal">
+
+                        <button type="submit"
+                                class="btn btn-primario">
+                            Publicar
+                        </button>
+
+                        <button type="button"
+                                class="btn btn-secundario"
+                                onclick="cerrarModalReel()">
+                            Cancelar
+                        </button>
+
                     </div>
-                </div>
 
-                <button type="submit" class="btn btn-primario btn-grande">
-                    ✅ Subir Video
-                </button>
-            </form>
+                </form>
+
+            </div>
+
         </div>
-    </div>
 
-    <!-- MODAL: GRABAR VIDEO -->
-    <div id="modalGrabarVideo" class="modal">
-        <div class="modal-content">
-            <span class="cerrar-modal" onclick="cerrarModal('modalGrabarVideo')">&times;</span>
-            <h2 style="color: var(--amarillo); margin-bottom: 20px;">🎥 Grabar Video</h2>
+        <!-- Lista de reels -->
+        <div class="reels-grid">
 
-            <div class="info-video">
-                <p>📌 <strong>Nota:</strong> Tu cámara web será utilizada para grabar</p>
-                <p>📌 <strong>Permite acceso a la cámara</strong> cuando tu navegador lo solicite</p>
-            </div>
+            {% if reels %}
 
-            <!-- Preview de cámara -->
-            <video id="videoCamara" class="video-preview" style="margin-bottom: 15px;"></video>
+                {% for reel in reels %}
 
-            <!-- Canvas para captura -->
-            <canvas id="canvasGrabacion" style="display: none;"></canvas>
+                <div class="reel-card">
 
-            <!-- Indicador de grabación -->
-            <div id="indicadorGrabacion" class="indicador-grabacion">
-                🔴 GRABANDO...
-            </div>
+                    <div class="reel-video">
+                        🎬 Video disponible
+                    </div>
 
-            <!-- Botones de control -->
-            <div class="botones-grabacion">
-                <button id="btnPlay" class="boton-grabar boton-play" onclick="iniciarGrabacion()">
-                    ▶️ INICIAR GRABACIÓN
-                </button>
-                <button id="btnStop" class="boton-grabar boton-stop" disabled onclick="detenerGrabacion()">
-                    ⏹️ DETENER
-                </button>
-            </div>
+                    <h3>{{ reel.titulo }}</h3>
 
-            <!-- Vista previa del video grabado -->
-            <video id="videoGrabado" class="video-preview" style="display: none; margin-bottom: 15px;" controls></video>
+                    <p>{{ reel.descripcion }}</p>
 
-            <!-- Formulario para guardar -->
-            <form id="formGrabarVideo" class="formulario-video" onsubmit="enviarVideo(event, 'grabar')" style="display: none; margin-top: 20px;">
-                <div class="grupo-input">
-                    <label for="tituloGrabar">📝 Título del Video</label>
-                    <input 
-                        type="text" 
-                        id="tituloGrabar" 
-                        name="titulo" 
-                        placeholder="Ej: Mi explicación de fracciones"
-                        required
-                    >
+                    <p class="categoria-reel">
+                        {{ reel.categoria }}
+                    </p>
+
+                    <div class="botones-reel">
+
+                        <a href="{{ reel.url_video }}"
+                           target="_blank"
+                           class="btn btn-pequeño">
+                            ▶️ Ver
+                        </a>
+
+                        <button class="btn btn-pequeño">
+                            ⭐ Favorito
+                        </button>
+
+                    </div>
+
                 </div>
 
-                <div class="grupo-input">
-                    <label for="descripcionGrabar">📄 Descripción (opcional)</label>
-                    <textarea 
-                        id="descripcionGrabar" 
-                        name="descripcion" 
-                        placeholder="Describe tu video"
-                        rows="3"
-                    ></textarea>
+                {% endfor %}
+
+            {% else %}
+
+                <div class="mensaje-vacio">
+
+                    <p>😊 Aún no hay reels publicados</p>
+
+                    <p>¡Comparte el primero!</p>
+
                 </div>
 
-                <div class="grupo-input">
-                    <label for="categoriaGrabar">📂 Categoría</label>
-                    <select id="categoriaGrabar" name="categoria" required>
-                        <option value="Matemáticas">Matemáticas</option>
-                        <option value="Historia">Historia</option>
-                        <option value="Ciencias">Ciencias</option>
-                        <option value="Español">Español</option>
-                        <option value="Consejos para examen">Consejos para examen</option>
-                        <option value="Variado">Variado</option>
-                    </select>
-                </div>
+            {% endif %}
 
-                <button type="submit" class="btn btn-primario btn-grande">
-                    ✅ Guardar Video Grabado
-                </button>
-            </form>
         </div>
-    </div>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script>
-        // Variables globales para grabación
-        let mediaRecorder;
-        let chunks = [];
-        let stream;
+    </main>
 
-        // Abrir modales
-        function abrirModalSubirVideo() {
-            document.getElementById('modalSubirVideo').style.display = 'block';
-        }
+</div>
 
-        function abrirModalGrabarVideo() {
-            document.getElementById('modalGrabarVideo').style.display = 'block';
-            inicializarCamara();
-        }
+<script>
 
-        // Cerrar modales
-        function cerrarModal(idModal) {
-            document.getElementById(idModal).style.display = 'none';
-            
-            // Si cierras el modal de grabar, detén la cámara
-            if (idModal === 'modalGrabarVideo') {
-                detenerCamara();
-                if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-                    mediaRecorder.stop();
-                }
-            }
-        }
+function abrirModalReel() {
 
-        // Cerrar modal al hacer clic afuera
-        window.onclick = function(event) {
-            let modal = document.getElementById('modalSubirVideo');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-            
-            modal = document.getElementById('modalGrabarVideo');
-            if (event.target == modal) {
-                cerrarModal('modalGrabarVideo');
-            }
-        }
+    document.getElementById('modalReel').style.display = 'flex';
 
-        // FUNCIONES DE CÁMARA
-        async function inicializarCamara() {
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: true, 
-                    audio: true 
-                });
-                
-                const videoCamara = document.getElementById('videoCamara');
-                videoCamara.srcObject = stream;
-                videoCamara.play();
-                
-                // Crear MediaRecorder
-                mediaRecorder = new MediaRecorder(stream);
-                chunks = [];
-                
-                mediaRecorder.ondataavailable = function(e) {
-                    chunks.push(e.data);
-                };
-                
-                mediaRecorder.onstop = function() {
-                    const blob = new Blob(chunks, { type: 'video/webm' });
-                    const url = URL.createObjectURL(blob);
-                    
-                    // Mostrar preview del video grabado
-                    const videoGrabado = document.getElementById('videoGrabado');
-                    videoGrabado.src = url;
-                    videoGrabado.style.display = 'block';
-                    
-                    // Guardar blob para enviar después
-                    window.videoGrabadoBlob = blob;
-                    
-                    // Mostrar formulario
-                    document.getElementById('formGrabarVideo').style.display = 'block';
-                    
-                    // Ocultar cámara
-                    document.getElementById('videoCamara').style.display = 'none';
-                };
-                
-            } catch (error) {
-                alert('❌ Error: No se puede acceder a la cámara.\n\nAsegúrate de:\n1. Permitir acceso a la cámara\n2. Usar HTTPS o localhost\n3. Tener una cámara conectada');
-                console.error('Error al acceder a cámara:', error);
-            }
-        }
+}
 
-        function detenerCamara() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-            }
-        }
+function cerrarModalReel() {
 
-        // FUNCIONES DE GRABACIÓN
-        function iniciarGrabacion() {
-            if (!mediaRecorder) {
-                alert('❌ Error: La cámara no está inicializada');
-                return;
-            }
-            
-            chunks = [];
-            mediaRecorder.start();
-            
-            document.getElementById('btnPlay').disabled = true;
-            document.getElementById('btnStop').disabled = false;
-            document.getElementById('indicadorGrabacion').classList.add('activo');
-            
-            mostrarNotificacion('🔴 Grabación iniciada', 'exito');
-        }
+    document.getElementById('modalReel').style.display = 'none';
 
-        function detenerGrabacion() {
-            if (!mediaRecorder) return;
-            
-            mediaRecorder.stop();
-            
-            document.getElementById('btnPlay').disabled = false;
-            document.getElementById('btnStop').disabled = true;
-            document.getElementById('indicadorGrabacion').classList.remove('activo');
-            
-            mostrarNotificacion('⏹️ Grabación detenida', 'exito');
-        }
+}
 
-        // ENVIAR VIDEOS
-        async function enviarVideo(e, tipo) {
-            e.preventDefault();
-            
-            const formData = new FormData();
-            
-            if (tipo === 'subir') {
-                const archivo = document.getElementById('archivoVideo').files[0];
-                if (!archivo) {
-                    alert('❌ Selecciona un video');
-                    return;
-                }
-                formData.append('video', archivo);
-                formData.append('titulo', document.getElementById('tituloSubir').value);
-                formData.append('descripcion', document.getElementById('descripcionSubir').value);
-                formData.append('categoria', document.getElementById('categoriaSubir').value);
-                
-                try {
-                    const response = await fetch('/api/subir-video', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        mostrarNotificacion('✅ Video subido correctamente', 'exito');
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1500);
-                    } else {
-                        mostrarNotificacion('❌ ' + data.error, 'error');
-                    }
-                } catch (error) {
-                    mostrarNotificacion('❌ Error al subir video', 'error');
-                    console.error('Error:', error);
-                }
-                
-            } else if (tipo === 'grabar') {
-                formData.append('video', window.videoGrabadoBlob, 'video-grabado.webm');
-                formData.append('titulo', document.getElementById('tituloGrabar').value);
-                formData.append('descripcion', document.getElementById('descripcionGrabar').value);
-                formData.append('categoria', document.getElementById('categoriaGrabar').value);
-                
-                try {
-                    const response = await fetch('/api/grabar-video', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        mostrarNotificacion('✅ Video grabado y guardado', 'exito');
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1500);
-                    } else {
-                        mostrarNotificacion('❌ ' + data.error, 'error');
-                    }
-                } catch (error) {
-                    mostrarNotificacion('❌ Error al guardar video', 'error');
-                    console.error('Error:', error);
-                }
-            }
-        }
-    </script>
+
+document.getElementById('formReel').addEventListener('submit', async function(e){
+
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    const response = await fetch('/api/subir-video', {
+
+        method: 'POST',
+        body: formData
+
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+
+        alert('Video agregado correctamente');
+
+        location.reload();
+
+    }else{
+
+        alert(data.error);
+
+    }
+
+});
+
+</script>
+
 </body>
 </html>
