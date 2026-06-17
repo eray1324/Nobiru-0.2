@@ -103,6 +103,7 @@ function cerrarModalCuestionario(){
 
     document.getElementById('modalCuestionario').style.display = 'none';
 
+    let cuestionarioActual = null;
 }
 
 async function crearCuestionario(){
@@ -127,15 +128,19 @@ async function crearCuestionario(){
 
     });
 
-    const data = await response.json();
+   const data = await response.json();
 
-    if(data.success){
+if(data.success){
 
-        alert('Cuestionario creado');
+    alert('Cuestionario creado');
 
-        location.reload();
+    cuestionarioActual = data.cuestionario_id;
 
-    }
+    document.getElementById('modalCrearCuestionario').style.display = 'none';
+
+    document.getElementById('modalAgregarPregunta').style.display = 'flex';
+
+}
 
 }
 
