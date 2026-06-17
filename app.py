@@ -510,6 +510,24 @@ def subir_video():
         'success': True
     })
 
+@app.route('/api/agregar-archivo', methods=['POST'])
+@login_requerido
+def agregar_archivo():
+
+    nuevo_archivo = Biblioteca(
+        titulo=request.form.get('titulo'),
+        descripcion=request.form.get('descripcion'),
+        autor=request.form.get('autor'),
+        tipo=request.form.get('tipo'),
+        url_archivo=request.form.get('url_archivo'),
+        usuario_id=session['usuario_id']
+    )
+
+    db.session.add(nuevo_archivo)
+    db.session.commit()
+
+    return jsonify({'success': True})
+    
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
 # ============================================
