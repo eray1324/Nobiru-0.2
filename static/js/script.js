@@ -129,8 +129,25 @@ async function agregarFavorito(tipo, itemId) {
 
 }
 
-function eliminarFavorito(itemId) {
-    mostrarNotificacion('Eliminado de favoritos', 'exito');
+async function eliminarFavorito(idFavorito){
+
+    const response = await fetch(
+        `/api/eliminar-favorito/${idFavorito}`,
+        {
+            method:'DELETE'
+        }
+    );
+
+    const data = await response.json();
+
+    if(data.success){
+
+        mostrarNotificacion('Favorito eliminado');
+
+        location.reload();
+
+    }
+
 }
 
 // ====================================
