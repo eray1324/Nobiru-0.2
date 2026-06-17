@@ -67,6 +67,41 @@
     </div>
 
 </div>
+
+           <div id="modalAgregarPregunta" class="modal" style="display:none;">
+
+    <div class="modal-contenido">
+
+        <h3>➕ Agregar Pregunta</h3>
+
+        <textarea id="textoPregunta"
+                  placeholder="Pregunta"></textarea>
+
+        <input type="text" id="opcionA" placeholder="Opción A">
+
+        <input type="text" id="opcionB" placeholder="Opción B">
+
+        <input type="text" id="opcionC" placeholder="Opción C">
+
+        <input type="text" id="opcionD" placeholder="Opción D">
+
+        <input type="text"
+               id="respuestaCorrecta"
+               placeholder="Respuesta correcta (A, B, C o D)">
+
+        <button class="btn btn-primario"
+                onclick="guardarPregunta()">
+            Guardar pregunta
+        </button>
+
+        <button class="btn btn-secundario"
+                onclick="terminarCuestionario()">
+            Terminar
+        </button>
+
+    </div>
+
+</div>     
             </div>
 
             <div class="cuestionarios-grid">
@@ -92,18 +127,16 @@
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
     <script>
-
-function abrirModalCuestionario(){
-
-    document.getElementById('modalCuestionario').style.display = 'flex';
-
-}
-
 function cerrarModalCuestionario(){
 
     document.getElementById('modalCuestionario').style.display = 'none';
 
     let cuestionarioActual = null;
+}
+function abrirModalCuestionario(){
+
+    document.getElementById('modalCuestionario').style.display = 'flex';
+
 }
 
 async function crearCuestionario(){
@@ -144,6 +177,61 @@ if(data.success){
 
 }
 
+async function guardarPregunta(){
+
+    const response = await fetch('/api/agregar-pregunta',{
+
+        method:'POST',
+
+        headers:{
+            'Content-Type':'application/json'
+        },
+
+        body: JSON.stringify({
+
+            cuestionario_id: cuestionarioActual,
+
+            texto: document.getElementById('textoPregunta').value,
+
+            opcion_a: document.getElementById('opcionA').value,
+
+            opcion_b: document.getElementById('opcionB').value,
+
+            opcion_c: document.getElementById('opcionC').value,
+
+            opcion_d: document.getElementById('opcionD').value,
+
+            respuesta_correcta:
+                document.getElementById('respuestaCorrecta').value
+
+        })
+
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+
+        alert('Pregunta guardada');
+
+        document.getElementById('textoPregunta').value='';
+        document.getElementById('opcionA').value='';
+        document.getElementById('opcionB').value='';
+        document.getElementById('opcionC').value='';
+        document.getElementById('opcionD').value='';
+        document.getElementById('respuestaCorrecta').value='';
+
+    }
+
+}
+        function terminarCuestionario(){
+
+    document.getElementById('modalAgregarPregunta').style.display = 'none';
+
+    location.reload();
+
+}
+        
 </script>
     
 </body>
