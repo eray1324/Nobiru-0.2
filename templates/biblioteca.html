@@ -33,6 +33,47 @@
             <h2>📚 Biblioteca</h2>
 
             <div class="acciones-seccion">
+                <div id="modalArchivo" class="modal" style="display:none;">
+
+    <div class="modal-contenido">
+
+        <h3>📚 Agregar archivo</h3>
+
+        <form id="formArchivo">
+
+            <input type="text"
+                   name="titulo"
+                   placeholder="Título"
+                   required>
+
+            <textarea name="descripcion"
+                      placeholder="Descripción"></textarea>
+
+            <input type="file"
+                   name="archivo"
+                   accept=".pdf,.doc,.docx,.ppt,.pptx"
+                   required>
+
+            <div class="botones-modal">
+
+                <button type="submit"
+                        class="btn btn-primario">
+                    Guardar
+                </button>
+
+                <button type="button"
+                        class="btn btn-secundario"
+                        onclick="cerrarModalArchivo()">
+                    Cancelar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
                 <button class="btn btn-primario btn-grande">➕ Agregar Archivo</button>
             </div>
 
@@ -54,7 +95,10 @@
                     <p>{{ archivo.descripcion }}</p>
                     <p class="autor-fecha">👤 {{ archivo.autor }} | 📅 {{ archivo.fecha_creacion }}</p>
                     <div class="botones-archivo">
-                        <button class="btn btn-grande">⬇️ Descargar</button>
+                        <a href="{{ url_for('descargar_archivo', nombre_archivo=archivo.url_archivo) }}"
+   class="btn btn-grande">
+    ⬇️ Descargar
+</a>
                         <button class="btn btn-grande">⭐ Favorito</button>
                     </div>
                 </div>
@@ -64,5 +108,45 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script>
+
+function abrirModalArchivo(){
+    document.getElementById('modalArchivo').style.display = 'flex';
+}
+
+function cerrarModalArchivo(){
+    document.getElementById('modalArchivo').style.display = 'none';
+}
+
+
+document.getElementById('formArchivo').addEventListener('submit', async function(e){
+
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    const response = await fetch('/api/subir-archivo', {
+        method:'POST',
+        body: formData
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+
+        alert('Archivo agregado correctamente');
+
+        location.reload();
+
+    }else{
+
+        alert(data.error);
+
+    }
+
+});
+
+</script>
 </body>
 </html>
