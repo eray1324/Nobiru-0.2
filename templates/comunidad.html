@@ -38,17 +38,24 @@
             </div>
 
             <div class="posts-lista">
-                {% for post in posts %}
-                <div class="post-card">
-                    <h3>{{ post.titulo }}</h3>
-                    <p>{{ post.contenido }}</p>
-                    <p class="tipo-post">📌 {{ post.tipo }}</p>
-                    <div class="botones-post">
-                        <button class="btn btn-pequeño">💬 Responder</button>
-                        <button class="btn btn-pequeño">👍 Me gusta</button>
+                {% if posts %}
+                    {% for post in posts %}
+                    <div class="post-card">
+                        <h3>{{ post.titulo }}</h3>
+                        <p>{{ post.contenido }}</p>
+                        <p class="tipo-post">📌 {{ post.tipo }}</p>
+                        <div class="botones-post">
+                            <button class="btn btn-pequeño">💬 Responder</button>
+                            <button class="btn btn-pequeño">👍 Me gusta</button>
+                        </div>
                     </div>
-                </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <div class="mensaje-vacio">
+                        <p>😊 Aún no hay posts en la comunidad</p>
+                        <p>¡Sé el primero en crear uno!</p>
+                    </div>
+                {% endif %}
             </div>
         </main>
     </div>
