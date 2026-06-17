@@ -1,9 +1,9 @@
-from werkzeug.utils import secure_filename
-from flask import send_from_directory
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 import os
+from werkzeug.utils import secure_filename
+from flask import send_from_directory
 import random
 from functools import wraps
 from dotenv import load_dotenv
@@ -13,6 +13,8 @@ load_dotenv()
 
 # Crear la aplicación Flask
 app = Flask(__name__)
+VIDEO_FOLDER = 'static/uploads/videos'
+app.config['VIDEO_FOLDER'] = VIDEO_FOLDER
 UPLOAD_FOLDER = 'static/uploads/documentos'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -486,6 +488,48 @@ def eliminar_favorito(id_favorito):
         return jsonify({'success': True})
 
     return jsonify({'success': False}), 404
+
+@app.route('/api/subir-video', methods=['POST'])
+@login_requerido
+def subir_video():
+
+    if 'video' not in request.files:
+        return jsonify({
+            'success': False,
+            'error': 'No se recibió ningún video'
+        }), 400
+
+    video = request.files['video']
+
+    if video.filename == '':
+        return jsonify({
+            'success': False,
+            'error': 'Video vacío'
+        }), 400
+
+    nombre_seguro = secure_filename(video.filename)
+
+    ruta_video = os.path.join(
+        app.config['VIDEO_FOLDER'],
+        nombre_seguro
+    )
+
+    video.save(ruta_video)
+
+    nuevo_reel = Reel(
+        titulo=request.form.get('titulo'),
+        descripcion=request.form.get('descripcion'),
+        categoria=request.form.get('categoria'),
+        url_video=nombre_seguro,
+        usuario_id=session['usuario_id']
+    )
+
+    db.session.add(nuevo_reel)
+    db.session.commit()
+
+    return jsonify({
+        'success': True
+    })
 
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
