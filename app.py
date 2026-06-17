@@ -33,6 +33,19 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'tu_clave_secreta_super_segur
 # Inicializar la base de datos
 db = SQLAlchemy(app)
 
+def obtener_actualizaciones():
+
+    url = (
+        f"https://api.telegram.org/bot"
+        f"{TELEGRAM_TOKEN}"
+        f"/getUpdates"
+    )
+
+    respuesta = requests.get(url)
+
+    return respuesta.json()
+
+
 def enviar_telegram(mensaje):
 
     url = (
@@ -344,15 +357,6 @@ def login_requerido(f):
 # ============================================
 # RUTAS PRINCIPALES
 # ============================================
-
-@app.route('/telegram-test')
-def telegram_test():
-
-    enviar_telegram(
-        "🚀 Mensaje enviado desde Nobiru"
-    )
-
-    return "Mensaje enviado"
     
 @app.route('/')
 def index():
@@ -559,6 +563,11 @@ def subir_archivo():
 
     db.session.add(nuevo_archivo)
     db.session.commit()
+    enviar_telegram(
+    f"📚 Nuevo material subido\n\n"
+    f"Usuario: {session['nombre_usuario']}\n"
+    f"Título: {request.form.get('titulo')}"
+)
 
     return jsonify({'success': True})
 
@@ -765,6 +774,31 @@ def agregar_pregunta():
     db.session.commit()
 
     return jsonify({'success': True})
+
+@app.route('/telegram-start')
+def telegram_start():
+
+    datos = obtener_actualizaciones()
+
+    if not datos.get('result'):
+        return "No hay mensajes"
+
+    ultimo = datos['result'][-1]
+
+    texto = ultimo['message'].get('text', '')
+
+    if texto == "/start":
+
+        enviar_telegram(
+            "🎓 Bienvenido a Nobiru\n\n"
+            "La plataforma para crecer y mejorar constantemente.\n\n"
+            "Comandos disponibles:\n\n"
+            "/start - Mostrar este mensaje\n"
+            "/stats - Ver estadísticas de Nobiru\n\n"
+            "🚀 Nobiru está conectado correctamente."
+        )
+
+    return "OK"
     
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
