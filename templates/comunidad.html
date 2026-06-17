@@ -33,25 +33,42 @@
             <h2>💬 Comunidad</h2>
 
             <div class="acciones-seccion">
-                <button class="btn btn-primario">✍️ Crear Pregunta</button>
-                <button class="btn btn-secundario">💡 Compartir Consejo</button>
+              <button class="btn btn-primario"
+        onclick="abrirModal('pregunta')">
+    ✍️ Crear Pregunta
+</button>
+
+<button class="btn btn-secundario"
+        onclick="abrirModal('consejo')">
+    💡 Compartir Consejo
+</button>
             </div>
 
-            <div class="formulario-post">
-    <input type="text" id="tituloPost" placeholder="Título">
+            <div id="modalPost" class="modal" style="display:none;">
 
-    <textarea id="contenidoPost"
-              placeholder="Escribe tu pregunta o consejo"></textarea>
+    <div class="modal-contenido">
 
-    <select id="tipoPost">
-        <option value="pregunta">Pregunta</option>
-        <option value="consejo">Consejo</option>
-    </select>
+        <h3 id="tituloModal">Nueva publicación</h3>
 
-    <button class="btn btn-primario"
-            onclick="publicarPost()">
-        Publicar
-    </button>
+        <input type="text"
+               id="tituloPost"
+               placeholder="Título">
+
+        <textarea id="contenidoPost"
+                  placeholder="Escribe aquí"></textarea>
+
+        <button class="btn btn-primario"
+                onclick="publicarPost()">
+            Publicar
+        </button>
+
+        <button class="btn btn-secundario"
+                onclick="cerrarModal()">
+            Cancelar
+        </button>
+
+    </div>
+
 </div>
             <div class="posts-lista">
                 {% if posts %}
@@ -83,7 +100,7 @@ async function publicarPost() {
 
     const titulo = document.getElementById('tituloPost').value;
     const contenido = document.getElementById('contenidoPost').value;
-    const tipo = document.getElementById('tipoPost').value;
+    const tipo = tipoSeleccionado;
 
     try {
 
@@ -120,6 +137,34 @@ async function publicarPost() {
     }
 
 }
+</script>
+
+    <script>
+
+let tipoSeleccionado = 'pregunta';
+
+function abrirModal(tipo){
+
+    tipoSeleccionado = tipo;
+
+    document.getElementById('modalPost').style.display = 'flex';
+
+    if(tipo === 'pregunta'){
+        document.getElementById('tituloModal').innerText =
+            '✍️ Crear Pregunta';
+    }else{
+        document.getElementById('tituloModal').innerText =
+            '💡 Compartir Consejo';
+    }
+
+}
+
+function cerrarModal(){
+
+    document.getElementById('modalPost').style.display = 'none';
+
+}
+
 </script>
     
 </body>
