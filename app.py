@@ -15,6 +15,8 @@ load_dotenv()
 app = Flask(__name__)
 VIDEO_FOLDER = 'static/uploads/videos'
 app.config['VIDEO_FOLDER'] = VIDEO_FOLDER
+
+os.makedirs(VIDEO_FOLDER, exist_ok=True)
 UPLOAD_FOLDER = 'static/uploads/documentos'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -494,18 +496,12 @@ def eliminar_favorito(id_favorito):
 def subir_video():
 
     if 'video' not in request.files:
-        return jsonify({
-            'success': False,
-            'error': 'No se recibió ningún video'
-        }), 400
+        return jsonify({'error': 'No se recibió ningún video'}), 400
 
     video = request.files['video']
 
     if video.filename == '':
-        return jsonify({
-            'success': False,
-            'error': 'Video vacío'
-        }), 400
+        return jsonify({'error': 'No se seleccionó ningún video'}), 400
 
     nombre_seguro = secure_filename(video.filename)
 
@@ -520,7 +516,7 @@ def subir_video():
         titulo=request.form.get('titulo'),
         descripcion=request.form.get('descripcion'),
         categoria=request.form.get('categoria'),
-        url_video=nombre_seguro,
+        url_video='/static/uploads/videos/' + nombre_seguro,
         usuario_id=session['usuario_id']
     )
 
@@ -530,7 +526,10 @@ def subir_video():
     return jsonify({
         'success': True
     })
-
+    @app.route('/api/grabar-video', methods=['POST'])
+@login_requerido
+def grabar_video():
+    return subir_video()
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
 # ============================================
