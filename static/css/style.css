@@ -762,3 +762,36 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--amarillo);
 }
+
+.modal{
+    position: fixed;
+    inset:0;
+    background: rgba(0,0,0,.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal-contenido{
+    background:#1A1A2E;
+    padding:30px;
+    border-radius:20px;
+    width:90%;
+    max-width:500px;
+    box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+.modal-contenido input,
+.modal-contenido textarea{
+    width:100%;
+    margin-top:15px;
+    padding:15px;
+    border-radius:12px;
+}
+
+.botones-modal{
+    margin-top:20px;
+    display:flex;
+    gap:15px;
+}
