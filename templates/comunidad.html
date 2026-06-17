@@ -37,6 +37,22 @@
                 <button class="btn btn-secundario">💡 Compartir Consejo</button>
             </div>
 
+            <div class="formulario-post">
+    <input type="text" id="tituloPost" placeholder="Título">
+
+    <textarea id="contenidoPost"
+              placeholder="Escribe tu pregunta o consejo"></textarea>
+
+    <select id="tipoPost">
+        <option value="pregunta">Pregunta</option>
+        <option value="consejo">Consejo</option>
+    </select>
+
+    <button class="btn btn-primario"
+            onclick="publicarPost()">
+        Publicar
+    </button>
+</div>
             <div class="posts-lista">
                 {% if posts %}
                     {% for post in posts %}
@@ -61,5 +77,50 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script>
+async function publicarPost() {
+
+    const titulo = document.getElementById('tituloPost').value;
+    const contenido = document.getElementById('contenidoPost').value;
+    const tipo = document.getElementById('tipoPost').value;
+
+    try {
+
+        const response = await fetch('/api/publicar-post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                titulo: titulo,
+                contenido: contenido,
+                tipo: tipo
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            alert('Publicación creada correctamente');
+
+            location.reload();
+
+        } else {
+
+            alert(data.error);
+
+        }
+
+    } catch (error) {
+
+        alert('Error al publicar');
+
+    }
+
+}
+</script>
+    
 </body>
 </html>
