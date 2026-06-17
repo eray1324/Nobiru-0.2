@@ -1,1 +1,764 @@
+/* ====================================
+   NOBIRU - ESTILOS GLOBALES
+   ==================================== */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colores principales */
+    --amarillo: #FFD700;
+    --naranja: #FF8C00;
+    --morado: #9370DB;
+    --azul: #4169E1;
+    
+    /* Colores de fondo (modo oscuro) */
+    --bg-oscuro: #0F0F1E;
+    --bg-card: #1A1A2E;
+    --bg-navbar: #16213E;
+    
+    /* Colores de texto */
+    --texto-primario: #FFFFFF;
+    --texto-secundario: #B0B0B0;
+    
+    /* Otros */
+    --sombra: rgba(0, 0, 0, 0.3);
+    --borde-radio: 12px;
+    --transicion: all 0.3s ease;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-oscuro);
+    color: var(--texto-primario);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ====================================
+   PÁGINA DE INICIO (index.html)
+   ==================================== */
+
+.contenedor-inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-oscuro) 0%, #1A1A2E 100%);
+    padding: 20px;
+}
+
+.logo-principal {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.titulo-nobiru {
+    font-size: 4rem;
+    background: linear-gradient(135deg, var(--amarillo), var(--naranja), var(--morado));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+    letter-spacing: 2px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.subtitulo {
+    color: var(--texto-secundario);
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.bienvenida-card {
+    background: var(--bg-card);
+    border-radius: var(--borde-radio);
+    padding: 30px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 8px 32px var(--sombra);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    text-align: center;
+}
+
+.bienvenida-card h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--amarillo);
+}
+
+.frase-diaria {
+    font-size: 1.2rem;
+    color: var(--morado);
+    font-style: italic;
+    line-height: 1.8;
+}
+
+.botones-inicio {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--borde-radio);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transicion);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-primario {
+    background: linear-gradient(135deg, var(--amarillo), var(--naranja));
+    color: #000;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.btn-primario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+}
+
+.btn-secundario {
+    background: linear-gradient(135deg, var(--morado), var(--azul));
+    color: white;
+    box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
+}
+
+.btn-secundario:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(147, 112, 219, 0.5);
+}
+
+.btn-grande {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.btn-pequeño {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+}
+
+.btn-volver {
+    background: var(--bg-navbar);
+    color: var(--texto-primario);
+    border: 1px solid var(--morado);
+}
+
+.btn-volver:hover {
+    background: var(--morado);
+}
+
+.footer-inicio {
+    text-align: center;
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+}
+
+/* ====================================
+   FORMULARIOS
+   ==================================== */
+
+.contenedor-formulario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-oscuro) 0%, #1A1A2E 100%);
+    padding: 20px;
+}
+
+.formulario-card {
+    background: var(--bg-card);
+    border-radius: var(--borde-radio);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 8px 32px var(--sombra);
+    border: 1px solid rgba(147, 112, 219, 0.2);
+}
+
+.titulo-formulario {
+    color: var(--amarillo);
+    font-size: 2rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.subtitulo-formulario {
+    color: var(--texto-secundario);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.grupo-input label {
+    color: var(--texto-primario);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.grupo-input input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    color: var(--texto-primario);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transicion);
+}
+
+.grupo-input input:focus {
+    outline: none;
+    border-color: var(--amarillo);
+    background: rgba(255, 215, 0, 0.05);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+.separador {
+    text-align: center;
+    color: var(--texto-secundario);
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+.alerta {
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.alerta-error {
+    background: rgba(255, 0, 0, 0.1);
+    color: #FF6B6B;
+    border: 1px solid #FF6B6B;
+}
+
+.enlace-alterno {
+    text-align: center;
+    color: var(--texto-secundario);
+    margin-top: 20px;
+}
+
+.enlace-alterno a {
+    color: var(--morado);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.enlace-alterno a:hover {
+    color: var(--amarillo);
+}
+
+/* ====================================
+   LAYOUT DE APLICACIÓN (Dashboard)
+   ==================================== */
+
+.contenedor-app {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+    gap: 0;
+}
+
+.navbar {
+    grid-column: 1 / -1;
+    background: var(--bg-navbar);
+    border-bottom: 2px solid rgba(255, 215, 0, 0.1);
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.navbar-logo {
+    color: var(--amarillo);
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
+.navbar-usuario {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nombre-usuario {
+    color: var(--texto-primario);
+}
+
+.btn-logout {
+    background: var(--naranja);
+    color: white;
+}
+
+.btn-logout:hover {
+    background: #FF7500;
+}
+
+.menu-lateral {
+    background: var(--bg-navbar);
+    border-right: 1px solid rgba(255, 215, 0, 0.1);
+    padding: 20px 0;
+    grid-row: 2 / -1;
+}
+
+.menu-lista {
+    list-style: none;
+}
+
+.menu-item {
+    display: block;
+    padding: 15px 20px;
+    color: var(--texto-primario);
+    text-decoration: none;
+    transition: var(--transicion);
+    border-left: 3px solid transparent;
+}
+
+.menu-item:hover {
+    background: rgba(255, 215, 0, 0.1);
+    border-left-color: var(--amarillo);
+}
+
+.menu-item.activo {
+    background: rgba(255, 215, 0, 0.1);
+    border-left-color: var(--amarillo);
+    color: var(--amarillo);
+}
+
+.contenido-principal {
+    padding: 30px;
+    overflow-y: auto;
+    background: var(--bg-oscuro);
+}
+
+/* ====================================
+   DASHBOARD SECTIONS
+   ==================================== */
+
+.bienvenida-dashboard {
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(147, 112, 219, 0.1) 100%);
+    border-radius: var(--borde-radio);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-left: 4px solid var(--morado);
+}
+
+.bienvenida-dashboard h2 {
+    color: var(--amarillo);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.frase-diaria-dashboard {
+    color: var(--morado);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+.estadisticas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card-estadistica {
+    background: var(--bg-card);
+    border-radius: var(--borde-radio);
+    padding: 25px;
+    box-shadow: 0 4px 15px var(--sombra);
+    border-top: 3px solid var(--morado);
+    text-align: center;
+}
+
+.card-estadistica h3 {
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.numero-grande {
+    color: var(--amarillo);
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.insignia-nombre {
+    color: var(--naranja);
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.insignia-visual {
+    font-size: 3rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.subtexto {
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.acciones-rapidas {
+    background: var(--bg-card);
+    border-radius: var(--borde-radio);
+    padding: 25px;
+    margin-bottom: 30px;
+    border-left: 4px solid var(--amarillo);
+}
+
+.acciones-rapidas h3 {
+    color: var(--amarillo);
+    margin-bottom: 20px;
+}
+
+.botones-accion {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.btn-accion {
+    background: linear-gradient(135deg, var(--morado), var(--azul));
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-align: center;
+    transition: var(--transicion);
+}
+
+.btn-accion:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(147, 112, 219, 0.4);
+}
+
+/* ====================================
+   CARDS Y GRILLAS
+   ==================================== */
+
+.card-cuestionario,
+.post-card,
+.reel-card,
+.archivo-card,
+.favorito-card {
+    background: var(--bg-card);
+    border-radius: var(--borde-radio);
+    padding: 20px;
+    box-shadow: 0 4px 15px var(--sombra);
+    transition: var(--transicion);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+.card-cuestionario:hover,
+.post-card:hover,
+.reel-card:hover,
+.archivo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--sombra);
+    border-color: var(--amarillo);
+}
+
+.cuestionarios-grid,
+.reels-grid,
+.biblioteca-grid,
+.favoritos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.posts-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.post-card {
+    border-left: 4px solid var(--morado);
+}
+
+/* ====================================
+   ELEMENTOS ESPECÍFICOS
+   ==================================== */
+
+.categoria {
+    color: var(--naranja);
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
+.categoria-reel {
+    background: rgba(147, 112, 219, 0.2);
+    color: var(--morado);
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    margin: 10px 0;
+}
+
+.tipo-post,
+.tipo-favorito {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--amarillo);
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    margin: 10px 0;
+}
+
+.botones-card,
+.botones-post,
+.botones-reel,
+.botones-archivo {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-favorito {
+    background: transparent;
+    border: 1px solid var(--naranja);
+    color: var(--naranja);
+}
+
+.btn-favorito:hover {
+    background: var(--naranja);
+    color: white;
+}
+
+.reel-video {
+    background: linear-gradient(135deg, var(--morado), var(--azul));
+    border-radius: 8px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.archivo-icono {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.autor-fecha {
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    margin: 10px 0;
+}
+
+.filtros-reels {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-filtro {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    color: var(--texto-primario);
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transicion);
+}
+
+.btn-filtro:hover,
+.btn-filtro.activo {
+    background: var(--amarillo);
+    color: #000;
+    border-color: var(--amarillo);
+}
+
+.acciones-seccion {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.mensaje-vacio {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--texto-secundario);
+}
+
+.mensaje-vacio p:first-child {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* ====================================
+   RESPONSIVE
+   ==================================== */
+
+@media (max-width: 768px) {
+    .contenedor-app {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-lateral {
+        display: none;
+    }
+
+    .titulo-nobiru {
+        font-size: 2.5rem;
+    }
+
+    .botones-inicio {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-primario,
+    .btn-secundario {
+        width: 100%;
+    }
+
+    .estadisticas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cuestionarios-grid,
+    .reels-grid,
+    .biblioteca-grid,
+    .favoritos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .formulario-card {
+        padding: 25px;
+    }
+
+    .navbar-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor-inicio {
+        padding: 15px;
+    }
+
+    .titulo-nobiru {
+        font-size: 1.8rem;
+    }
+
+    .bienvenida-card {
+        padding: 20px;
+    }
+
+    .bienvenida-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .frase-diaria {
+        font-size: 1rem;
+    }
+
+    .contenido-principal {
+        padding: 15px;
+    }
+
+    .botones-accion {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ====================================
+   ANIMACIONES Y EFECTOS
+   ==================================== */
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-cuestionario,
+.post-card,
+.reel-card,
+.archivo-card {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-oscuro);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--morado);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--amarillo);
+}
