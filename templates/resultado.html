@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado</title>
+</head>
+<body class="modo-oscuro">
+
+<div class="contenido-principal">
+
+    <h2>🎉 Resultado</h2>
+
+    <h3>✅ Aciertos: {{ aciertos }}</h3>
+
+    <h3>❌ Errores: {{ errores }}</h3>
+
+    <h3>⭐ Puntos obtenidos: {{ puntos }}</h3>
+
+    <a href="{{ url_for('cuestionarios') }}"
+       class="btn btn-primario">
+
+       Volver
+
+    </a>
+
+</div>
+
+</body>
+</html>
