@@ -33,7 +33,40 @@
             <h2>📝 Cuestionarios</h2>
             
             <div class="acciones-seccion">
-                <button class="btn btn-primario">➕ Crear Cuestionario</button>
+                <button class="btn btn-primario"
+        onclick="abrirModalCuestionario()">
+    ➕ Crear Cuestionario
+</button>
+                <div id="modalCuestionario" class="modal" style="display:none;">
+
+    <div class="modal-contenido">
+
+        <h3>➕ Nuevo Cuestionario</h3>
+
+        <input type="text"
+               id="tituloQuiz"
+               placeholder="Título">
+
+        <textarea id="descripcionQuiz"
+                  placeholder="Descripción"></textarea>
+
+        <input type="text"
+               id="categoriaQuiz"
+               placeholder="Categoría">
+
+        <button class="btn btn-primario"
+                onclick="crearCuestionario()">
+            Guardar
+        </button>
+
+        <button class="btn btn-secundario"
+                onclick="cerrarModalCuestionario()">
+            Cancelar
+        </button>
+
+    </div>
+
+</div>
             </div>
 
             <div class="cuestionarios-grid">
