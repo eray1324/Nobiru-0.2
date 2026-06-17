@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOBIRU - Iniciar Sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="modo-oscuro">
+    <div class="contenedor-formulario">
+        <div class="formulario-card">
+            <h1 class="titulo-formulario">Iniciar Sesión</h1>
 
+            <form id="formLogin" class="formulario">
+                <!-- Opción 1: Por nombre de usuario -->
+                <div class="grupo-input">
+                    <label for="nombre_usuario">👤 Nombre de usuario</label>
+                    <input 
+                        type="text" 
+                        id="nombre_usuario" 
+                        name="nombre_usuario" 
+                        placeholder="Tu nombre de usuario"
+                        required
+                    >
+                </div>
+
+                <!-- O por email -->
+                <div class="separador">O</div>
+
+                <div class="grupo-input">
+                    <label for="email">📧 Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="tu@email.com"
+                    >
+                </div>
+
+                <!-- Mensaje de error -->
+                <div id="mensajeError" class="alerta alerta-error" style="display: none;"></div>
+
+                <!-- Botón enviar -->
+                <button type="submit" class="btn btn-primario btn-grande">
+                    🔓 Entrar
+                </button>
+            </form>
+
+            <!-- Link a registro -->
+            <p class="enlace-alterno">
+                ¿No tienes cuenta? 
+                <a href="{{ url_for('register') }}">Regístrate aquí</a>
+            </p>
+
+            <!-- Volver -->
+            <a href="{{ url_for('index') }}" class="btn btn-volver">
+                ← Volver al inicio
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('formLogin').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nombre_usuario = document.getElementById('nombre_usuario').value;
+            const email = document.getElementById('email').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nombre_usuario: nombre_usuario || null,
+                        email: email || null
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Redirigir al dashboard
+                    window.location.href = data.redirect;
+                } else {
+                    // Mostrar error
+                    document.getElementById('mensajeError').textContent = data.error;
+                    document.getElementById('mensajeError').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('mensajeError').textContent = 'Error al conectar con el servidor';
+                document.getElementById('mensajeError').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
