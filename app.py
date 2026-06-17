@@ -495,28 +495,11 @@ def eliminar_favorito(id_favorito):
 @login_requerido
 def subir_video():
 
-    if 'video' not in request.files:
-        return jsonify({'error': 'No se recibió ningún video'}), 400
-
-    video = request.files['video']
-
-    if video.filename == '':
-        return jsonify({'error': 'No se seleccionó ningún video'}), 400
-
-    nombre_seguro = secure_filename(video.filename)
-
-    ruta_video = os.path.join(
-        app.config['VIDEO_FOLDER'],
-        nombre_seguro
-    )
-
-    video.save(ruta_video)
-
     nuevo_reel = Reel(
         titulo=request.form.get('titulo'),
         descripcion=request.form.get('descripcion'),
         categoria=request.form.get('categoria'),
-        url_video='/static/uploads/videos/' + nombre_seguro,
+        url_video=request.form.get('url_video'),
         usuario_id=session['usuario_id']
     )
 
@@ -526,6 +509,7 @@ def subir_video():
     return jsonify({
         'success': True
     })
+    
     @app.route('/api/grabar-video', methods=['POST'])
 @login_requerido
 def grabar_video():
