@@ -14,7 +14,7 @@ load_dotenv()
 
 # Crear la aplicación Flask
 app = Flask(__name__)
-TELEGRAM_TOKEN = "7768109077:AAHFjFXsXREoKKkazUyITQkwMVbbd3o5MkM"
+TELEGRAM_TOKEN = "7768109077:AAHccIO5gu2BPeprtsfkMX4D7VTmKAB-BcE"
 TELEGRAM_CHAT_ID = "6760539738"
 VIDEO_FOLDER = 'static/uploads/videos'
 app.config['VIDEO_FOLDER'] = VIDEO_FOLDER
@@ -349,10 +349,10 @@ def login_requerido(f):
 def telegram_test():
 
     enviar_telegram(
-        "🚀 Prueba desde Nobiru"
+        "🚀 Mensaje enviado desde Nobiru"
     )
 
-    return "Mensaje enviado a Telegram"
+    return "Mensaje enviado"
     
 @app.route('/')
 def index():
