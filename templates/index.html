@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOBIRU - Bienvenido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="modo-oscuro">
+    <div class="contenedor-inicio">
+        <!-- Logo -->
+        <div class="logo-principal">
+            <h1 class="titulo-nobiru">NOBIRU</h1>
+            <p class="subtitulo">Crecer y mejorar constantemente</p>
+        </div>
 
+        <!-- Mensaje Principal -->
+        <div class="bienvenida-card">
+            <h2>¡Bienvenido a Nobiru!</h2>
+            <p class="frase-diaria">{{ frase }}</p>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="botones-inicio">
+            <a href="{{ url_for('login') }}" class="btn btn-primario">
+                🔐 Iniciar Sesión
+            </a>
+            <a href="{{ url_for('register') }}" class="btn btn-secundario">
+                ✍️ Registrarse
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer-inicio">
+            <p>Plataforma educativa diseñada para tu éxito académico</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
