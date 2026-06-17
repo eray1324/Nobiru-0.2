@@ -142,9 +142,12 @@
                     <p>{{ archivo.descripcion }}</p>
                     <p class="autor-fecha">👤 {{ archivo.autor }} | 📅 {{ archivo.fecha_creacion }}</p>
                     <div class="botones-archivo">
-                        <a href="{{ url_for('descargar_archivo', nombre_archivo=archivo.url_archivo) }}"
+                      <a href="{{ archivo.url_archivo }}"
+   target="_blank"
    class="btn btn-grande">
-    ⬇️ Descargar
+
+    ⬇️ Abrir
+
 </a>
                         <button class="btn btn-grande"
         onclick="agregarFavorito('pdf', {{ archivo.id }})">
