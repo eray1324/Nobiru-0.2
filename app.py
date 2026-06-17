@@ -472,6 +472,21 @@ def agregar_favorito():
         'success': True
     })
 
+@app.route('/api/eliminar-favorito/<int:id_favorito>', methods=['DELETE'])
+@login_requerido
+def eliminar_favorito(id_favorito):
+
+    favorito = Favorito.query.get(id_favorito)
+
+    if favorito and favorito.usuario_id == session['usuario_id']:
+
+        db.session.delete(favorito)
+        db.session.commit()
+
+        return jsonify({'success': True})
+
+    return jsonify({'success': False}), 404
+
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
 # ============================================
