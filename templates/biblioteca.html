@@ -99,7 +99,10 @@
    class="btn btn-grande">
     ⬇️ Descargar
 </a>
-                        <button class="btn btn-grande">⭐ Favorito</button>
+                        <button class="btn btn-grande"
+        onclick="agregarFavorito('pdf', {{ archivo.id }})">
+    ⭐ Favorito
+</button>
                     </div>
                 </div>
                 {% endfor %}
