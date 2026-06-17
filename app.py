@@ -597,6 +597,22 @@ def agregar_pregunta():
     db.session.commit()
 
     return jsonify({'success': True})
+
+@app.route('/resolver-cuestionario/<int:id>')
+@login_requerido
+def resolver_cuestionario(id):
+
+    cuestionario = Cuestionario.query.get_or_404(id)
+
+    preguntas = Pregunta.query.filter_by(
+        cuestionario_id=id
+    ).all()
+
+    return render_template(
+        'resolver_cuestionario.html',
+        cuestionario=cuestionario,
+        preguntas=preguntas
+    )
     
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
