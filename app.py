@@ -799,6 +799,59 @@ def telegram_start():
         )
 
     return "OK"
+
+@app.route('/webhook-telegram', methods=['POST'])
+def webhook_telegram():
+
+    data = request.get_json()
+
+    if not data:
+        return "OK"
+
+    mensaje = data.get('message', {})
+
+    texto = mensaje.get('text', '')
+    chat_id = mensaje.get('chat', {}).get('id')
+
+    if texto == '/start':
+
+        requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            json={
+                "chat_id": chat_id,
+                "text":
+                "🎓 Bienvenido a Nobiru\n\n"
+                "La plataforma para crecer y mejorar constantemente.\n\n"
+                "Comandos disponibles:\n"
+                "/start\n"
+                "/stats\n\n"
+                "🚀 Bot conectado correctamente."
+            }
+        )
+
+    elif texto == '/stats':
+
+        usuarios = Usuario.query.count()
+        cuestionarios = Cuestionario.query.count()
+        preguntas = Pregunta.query.count()
+        reels = Reel.query.count()
+        documentos = Biblioteca.query.count()
+
+        requests.post(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            json={
+                "chat_id": chat_id,
+                "text":
+                f"📊 Estadísticas Nobiru\n\n"
+                f"👤 Usuarios: {usuarios}\n"
+                f"📝 Cuestionarios: {cuestionarios}\n"
+                f"❓ Preguntas: {preguntas}\n"
+                f"🎥 Reels: {reels}\n"
+                f"📚 Documentos: {documentos}"
+            }
+        )
+
+    return "OK"
     
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
