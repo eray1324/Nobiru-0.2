@@ -379,25 +379,21 @@ def favoritos():
 @app.route('/api/publicar-post', methods=['POST'])
 @login_requerido
 def publicar_post():
-    data = request.get_json(force=True)
 
-    titulo = data.get('titulo')
-    contenido = data.get('contenido')
-    tipo = data.get('tipo', 'pregunta')
+    data = request.get_json(force=True)
 
     nuevo_post = PostComunidad(
         usuario_id=session['usuario_id'],
-        titulo=titulo,
-        contenido=contenido,
-        tipo=tipo
+        titulo=data.get('titulo'),
+        contenido=data.get('contenido'),
+        tipo=data.get('tipo')
     )
 
     db.session.add(nuevo_post)
     db.session.commit()
 
     return jsonify({
-        'success': True,
-        'mensaje': 'Publicación creada correctamente'
+        'success': True
     })
 
 
