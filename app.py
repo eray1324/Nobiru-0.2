@@ -378,9 +378,21 @@ def biblioteca():
 @login_requerido
 def favoritos():
     """Página de favoritos"""
-    usuario = Usuario.query.get(session['usuario_id'])
-    favoritos_usuario = Favorito.query.filter_by(usuario_id=usuario.id).all()
-    return render_template('favoritos.html', favoritos=favoritos_usuario)
+
+    usuario = Usuario.query.get(session.get('usuario_id'))
+
+    if not usuario:
+        session.clear()
+        return redirect(url_for('login'))
+
+    favoritos_usuario = Favorito.query.filter_by(
+        usuario_id=usuario.id
+    ).all()
+
+    return render_template(
+        'favoritos.html',
+        favoritos=favoritos_usuario
+    )
 
 @app.route('/descargar/<nombre_archivo>')
 @login_requerido
@@ -394,25 +406,16 @@ def descargar_archivo(nombre_archivo):
 
 
 @app.route('/api/usuario')
-@app.route('/api/publicar-post', methods=['POST'])
 @login_requerido
-def publicar_post():
+def api_usuario():
 
-    data = request.get_json(force=True)
+    usuario = Usuario.query.get(session.get('usuario_id'))
 
-    nuevo_post = PostComunidad(
-        usuario_id=session['usuario_id'],
-        titulo=data.get('titulo'),
-        contenido=data.get('contenido'),
-        tipo=data.get('tipo')
-    )
+    if not usuario:
+        session.clear()
+        return jsonify({'error': 'Usuario no encontrado'}), 404
 
-    db.session.add(nuevo_post)
-    db.session.commit()
-
-    return jsonify({
-        'success': True
-    })
+    return jsonify(usuario.to_dict())
 
 @app.route('/api/subir-archivo', methods=['POST'])
 @login_requerido
