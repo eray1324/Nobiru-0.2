@@ -530,6 +530,24 @@ def agregar_archivo():
     db.session.commit()
 
     return jsonify({'success': True})
+
+@app.route('/api/crear-cuestionario', methods=['POST'])
+@login_requerido
+def crear_cuestionario():
+
+    data = request.get_json()
+
+    nuevo = Cuestionario(
+        titulo=data['titulo'],
+        descripcion=data['descripcion'],
+        categorias=data['categoria'],
+        autor_id=session['usuario_id']
+    )
+
+    db.session.add(nuevo)
+    db.session.commit()
+
+    return jsonify({'success': True})
     
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
