@@ -32,8 +32,6 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'tu_clave_secreta_super_segur
 
 # Inicializar la base de datos
 db = SQLAlchemy(app)
-# Inicializar la base de datos
-db = SQLAlchemy(app)
 
 def enviar_telegram(mensaje):
 
@@ -56,10 +54,6 @@ def enviar_telegram(mensaje):
 
     except Exception as e:
         print("Error Telegram:", e)
-
-# ============================================
-# MODELOS DE BASE DE DATOS
-# ============================================
 
 # ============================================
 # MODELOS DE BASE DE DATOS
