@@ -441,6 +441,37 @@ def subir_archivo():
 
     return jsonify({'success': True})
 
+@app.route('/api/agregar-favorito', methods=['POST'])
+@login_requerido
+def agregar_favorito():
+
+    data = request.get_json(force=True)
+
+    existe = Favorito.query.filter_by(
+        usuario_id=session['usuario_id'],
+        tipo=data.get('tipo'),
+        item_id=data.get('item_id')
+    ).first()
+
+    if existe:
+        return jsonify({
+            'success': False,
+            'error': 'Ya está en favoritos'
+        })
+
+    nuevo_favorito = Favorito(
+        usuario_id=session['usuario_id'],
+        tipo=data.get('tipo'),
+        item_id=data.get('item_id')
+    )
+
+    db.session.add(nuevo_favorito)
+    db.session.commit()
+
+    return jsonify({
+        'success': True
+    })
+
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
 # ============================================
