@@ -1,1 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOBIRU - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="modo-oscuro">
+    <div class="contenedor-app">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <h1 class="navbar-logo">NOBIRU</h1>
+                <div class="navbar-usuario">
+                    <span class="nombre-usuario">👤 {{ usuario.nombre_usuario }}</span>
+                    <a href="{{ url_for('logout') }}" class="btn btn-pequeño btn-logout">Salir</a>
+                </div>
+            </div>
+        </nav>
 
+        <!-- Menu lateral -->
+        <div class="menu-lateral">
+            <ul class="menu-lista">
+                <li><a href="{{ url_for('dashboard') }}" class="menu-item activo">🏠 Inicio</a></li>
+                <li><a href="{{ url_for('cuestionarios') }}" class="menu-item">📝 Cuestionarios</a></li>
+                <li><a href="{{ url_for('comunidad') }}" class="menu-item">💬 Comunidad</a></li>
+                <li><a href="{{ url_for('reels') }}" class="menu-item">🎬 Reels Educativos</a></li>
+                <li><a href="{{ url_for('biblioteca') }}" class="menu-item">📚 Biblioteca</a></li>
+                <li><a href="{{ url_for('favoritos') }}" class="menu-item">⭐ Mis Favoritos</a></li>
+            </ul>
+        </div>
+
+        <!-- Contenido Principal -->
+        <main class="contenido-principal">
+            <!-- Bienvenida -->
+            <section class="bienvenida-dashboard">
+                <h2>¡Hola, {{ usuario.nombre_usuario }}! 👋</h2>
+                <p class="frase-diaria-dashboard">{{ frase }}</p>
+            </section>
+
+            <!-- Estadísticas -->
+            <section class="estadisticas-grid">
+                <!-- Card de Puntos -->
+                <div class="card-estadistica">
+                    <h3>📊 Puntos</h3>
+                    <p class="numero-grande">{{ usuario.puntos }}</p>
+                    <p class="subtexto">Sigue participando para ganar más</p>
+                </div>
+
+                <!-- Card de Nivel -->
+                <div class="card-estadistica">
+                    <h3>🎯 Nivel</h3>
+                    <p class="numero-grande">{{ usuario.nivel }}</p>
+                    <p class="subtexto">Progresivamente más desafíos</p>
+                </div>
+
+                <!-- Card de Insignia -->
+                <div class="card-estadistica">
+                    <h3>🏆 Insignia</h3>
+                    <p class="insignia-nombre">{{ usuario.insignia|upper }}</p>
+                    <div class="insignia-visual" id="insigniaVisual"></div>
+                </div>
+            </section>
+
+            <!-- Acciones Rápidas -->
+            <section class="acciones-rapidas">
+                <h3>⚡ Acciones Rápidas</h3>
+                <div class="botones-accion">
+                    <a href="{{ url_for('cuestionarios') }}" class="btn btn-accion">
+                        📝 Resolver Cuestionario
+                    </a>
+                    <a href="{{ url_for('comunidad') }}" class="btn btn-accion">
+                        💬 Comunidad
+                    </a>
+                    <a href="{{ url_for('reels') }}" class="btn btn-accion">
+                        🎬 Ver Reels
+                    </a>
+                    <a href="{{ url_for('biblioteca') }}" class="btn btn-accion">
+                        📚 Biblioteca
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Mostrar insignia visual según tipo
+        const insignia = '{{ usuario.insignia }}';
+        const insigniaVisual = document.getElementById('insigniaVisual');
+        
+        const insignias = {
+            'bronce': '🥉',
+            'plata': '🥈',
+            'oro': '🥇',
+            'platino': '💎',
+            'diamante': '💠',
+            'rubi': '❤️',
+            'esmeralda': '💚',
+            'zafiro': '💙',
+            'amatista': '💜',
+            'obsidiana': '⚫'
+        };
+        
+        insigniaVisual.textContent = insignias[insignia] || '🏅';
+    </script>
+</body>
+</html>
