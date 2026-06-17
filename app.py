@@ -14,7 +14,7 @@ load_dotenv()
 
 # Crear la aplicación Flask
 app = Flask(__name__)
-TELEGRAM_TOKEN = "7768109077:AAHccIO5gu2BPeprtsfkMX4D7VTmKAB-BcE"
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 TELEGRAM_CHAT_ID = "6760539738"
 VIDEO_FOLDER = 'static/uploads/videos'
 app.config['VIDEO_FOLDER'] = VIDEO_FOLDER
@@ -392,6 +392,11 @@ def register():
         )
         db.session.add(nuevo_usuario)
         db.session.commit()
+        enviar_telegram(
+    f"👤 Nuevo usuario registrado\n\n"
+    f"Usuario: {nuevo_usuario.nombre_usuario}\n"
+    f"Correo: {nuevo_usuario.email}"
+)
         
         # Iniciar sesión
         session['usuario_id'] = nuevo_usuario.id
@@ -692,6 +697,8 @@ def calificar_cuestionario(id):
     if usuario.puntos < 0:
         usuario.puntos = 0
 
+    insignia_anterior = usuario.insignia
+
     usuario.insignia = calcular_insignia(
         usuario.puntos
     )
@@ -711,6 +718,24 @@ def calificar_cuestionario(id):
 
     db.session.add(resultado)
     db.session.commit()
+
+    if insignia_anterior != usuario.insignia:
+
+        enviar_telegram(
+            f"🏆 Cambio de insignia\n\n"
+            f"Usuario: {usuario.nombre_usuario}\n"
+            f"Anterior: {insignia_anterior}\n"
+            f"Nueva: {usuario.insignia}"
+        )
+
+    enviar_telegram(
+        f"📚 Cuestionario completado\n\n"
+        f"Usuario: {usuario.nombre_usuario}\n"
+        f"Aciertos: {aciertos}\n"
+        f"Errores: {errores}\n"
+        f"Puntos obtenidos: {puntos}\n"
+        f"Insignia: {usuario.insignia}"
+    )
 
     return render_template(
         'resultado.html',
