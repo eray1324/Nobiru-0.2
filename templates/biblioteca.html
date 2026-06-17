@@ -74,10 +74,57 @@
     </div>
 
 </div>
-                <button class="btn btn-primario btn-grande">➕ Agregar Archivo</button>
+                <button class="btn btn-primario btn-grande"
+        onclick="abrirModalBiblioteca()">
+    ➕ Agregar Archivo
+</button>
             </div>
 
             <div class="biblioteca-grid">
+                <div id="modalBiblioteca" class="modal" style="display:none;">
+
+    <div class="modal-contenido">
+
+        <h3>📚 Nuevo recurso</h3>
+
+        <form id="formBiblioteca">
+
+            <input type="text"
+                   name="titulo"
+                   placeholder="Título"
+                   required>
+
+            <textarea name="descripcion"
+                      placeholder="Descripción"></textarea>
+
+            <input type="text"
+                   name="autor"
+                   placeholder="Autor">
+
+            <select name="tipo">
+
+                <option value="PDF">PDF</option>
+                <option value="Canva">Canva</option>
+                <option value="Google Docs">Google Docs</option>
+                <option value="Google Slides">Google Slides</option>
+                <option value="Libro">Libro</option>
+
+            </select>
+
+            <input type="text"
+                   name="url_archivo"
+                   placeholder="Pega aquí el enlace"
+                   required>
+
+            <button type="submit" class="btn btn-primario">
+                Guardar
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
                 {% for archivo in archivos %}
                 <div class="archivo-card">
                     <div class="archivo-icono">
