@@ -465,6 +465,10 @@ def favoritos():
         favoritos=favoritos_usuario
     )
 
+@app.route('/health')
+def health():
+    return "OK", 200
+
 @app.route('/descargar/<nombre_archivo>')
 @login_requerido
 def descargar_archivo(nombre_archivo):
