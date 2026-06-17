@@ -674,13 +674,13 @@ def calificar_cuestionario(id):
     db.session.add(resultado)
     db.session.commit()
 
-   return render_template(
-    'resultado.html',
-    aciertos=aciertos,
-    errores=errores,
-    puntos=puntos,
-    usuario=usuario
-)
+    return render_template(
+        'resultado.html',
+        aciertos=aciertos,
+        errores=errores,
+        puntos=puntos,
+        usuario=usuario
+    )
 
 @app.route('/api/agregar-pregunta', methods=['POST'])
 @login_requerido
