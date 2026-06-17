@@ -259,7 +259,7 @@ def index():
 def register():
     """Registro de usuarios"""
     if request.method == 'POST':
-        data = request.get_json()
+        data = request.get_json(force=True)
         email = data.get('email')
         nombre_usuario = data.get('nombre_usuario')
         nombre_completo = data.get('nombre_completo', '')
@@ -293,7 +293,7 @@ def register():
 def login():
     """Inicio de sesión"""
     if request.method == 'POST':
-        data = request.get_json()
+        data = request.get_json(force=True)
         nombre_usuario = data.get('nombre_usuario')
         email = data.get('email')
         
@@ -454,15 +454,10 @@ def error_interno(error):
     return render_template('error.html', mensaje='Error interno del servidor'), 500
 
 
-# ============================================
-# PUNTO DE ENTRADA
-# ============================================
+# Crear base de datos siempre (también en Render)
+crear_base_datos()
 
 if __name__ == '__main__':
-    # Crear base de datos
-    crear_base_datos()
-    
-    # Ejecutar la aplicación
     debug_mode = os.getenv('FLASK_ENV', 'production') == 'development'
     port = int(os.getenv('PORT', 5000))
     app.run(debug=debug_mode, host='0.0.0.0', port=port)
