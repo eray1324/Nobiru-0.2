@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ cuestionario.titulo }}</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="modo-oscuro">
+
+<div class="contenido-principal">
+
+    <h2>{{ cuestionario.titulo }}</h2>
+    <p>{{ cuestionario.descripcion }}</p>
+
+    <form action="/calificar-cuestionario/{{ cuestionario.id }}"
+          method="POST">
+
+        {% for pregunta in preguntas %}
+
+        <div class="card-cuestionario">
+
+            <h3>{{ loop.index }}. {{ pregunta.texto }}</h3>
+
+            <label>
+                <input type="radio"
+                       name="pregunta_{{ pregunta.id }}"
+                       value="A">
+                {{ pregunta.opcion_a }}
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="radio"
+                       name="pregunta_{{ pregunta.id }}"
+                       value="B">
+                {{ pregunta.opcion_b }}
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="radio"
+                       name="pregunta_{{ pregunta.id }}"
+                       value="C">
+                {{ pregunta.opcion_c }}
+            </label>
+
+            <br><br>
+
+            <label>
+                <input type="radio"
+                       name="pregunta_{{ pregunta.id }}"
+                       value="D">
+                {{ pregunta.opcion_d }}
+            </label>
+
+        </div>
+
+        <br>
+
+        {% endfor %}
+
+        <button class="btn btn-primario">
+            Finalizar cuestionario
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
