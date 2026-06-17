@@ -562,27 +562,6 @@ def crear_cuestionario():
     'cuestionario_id': nuevo.id
 })
 
-@app.route('/api/agregar-pregunta', methods=['POST'])
-@login_requerido
-def agregar_pregunta():
-
-    data = request.get_json()
-
-    nueva_pregunta = Pregunta(
-        cuestionario_id=data['cuestionario_id'],
-        texto=data['texto'],
-        opcion_a=data['opcion_a'],
-        opcion_b=data['opcion_b'],
-        opcion_c=data['opcion_c'],
-        opcion_d=data['opcion_d'],
-        respuesta_correcta=data['respuesta_correcta']
-    )
-
-    db.session.add(nueva_pregunta)
-    db.session.commit()
-
-    return jsonify({'success': True})
-
 @app.route('/resolver-cuestionario/<int:id>')
 @login_requerido
 def resolver_cuestionario(id):
