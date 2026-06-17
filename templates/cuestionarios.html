@@ -76,7 +76,11 @@
                     <p>{{ cuestionario.descripcion }}</p>
                     <p class="categoria">📂 {{ cuestionario.categorias }}</p>
                     <div class="botones-card">
-                        <button class="btn btn-pequeño">🎯 Resolver</button>
+                        <a href="{{ url_for('resolver_cuestionario',
+                     id=cuestionario.id) }}"
+   class="btn btn-pequeño">
+    🎯 Resolver
+</a>
                         <button class="btn btn-pequeño btn-favorito">⭐ Favorito</button>
                     </div>
                 </div>
