@@ -201,5 +201,38 @@ document.getElementById('formArchivo').addEventListener('submit', async function
 });
 
 </script>
+    <script>
+
+function abrirModalBiblioteca() {
+    document.getElementById('modalBiblioteca').style.display = 'flex';
+}
+
+document.getElementById('formBiblioteca').addEventListener('submit', async function(e){
+
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    const response = await fetch('/api/agregar-archivo', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+
+        alert('Archivo agregado correctamente');
+        location.reload();
+
+    } else {
+
+        alert('Error');
+
+    }
+
+});
+
+</script>
 </body>
 </html>
