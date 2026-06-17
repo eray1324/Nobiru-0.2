@@ -509,11 +509,7 @@ def subir_video():
     return jsonify({
         'success': True
     })
-    
-    @app.route('/api/grabar-video', methods=['POST'])
-@login_requerido
-def grabar_video():
-    return subir_video()
+
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
 # ============================================
