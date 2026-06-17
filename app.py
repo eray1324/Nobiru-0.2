@@ -589,11 +589,11 @@ def agregar_pregunta():
     nueva_pregunta = Pregunta(
         cuestionario_id=data['cuestionario_id'],
         texto=data['texto'],
-        opcion_a=data['a'],
-        opcion_b=data['b'],
-        opcion_c=data['c'],
-        opcion_d=data['d'],
-        respuesta_correcta=data['correcta']
+        opcion_a=data['opcion_a'],
+        opcion_b=data['opcion_b'],
+        opcion_c=data['opcion_c'],
+        opcion_d=data['opcion_d'],
+        respuesta_correcta=data['respuesta_correcta']
     )
 
     db.session.add(nueva_pregunta)
