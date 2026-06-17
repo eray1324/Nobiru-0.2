@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOBIRU - Reels Educativos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="modo-oscuro">
+    <div class="contenedor-app">
+        <nav class="navbar">
+            <div class="navbar-content">
+                <h1 class="navbar-logo">NOBIRU</h1>
+                <div class="navbar-usuario">
+                    <span class="nombre-usuario">👤 Usuario</span>
+                    <a href="{{ url_for('logout') }}" class="btn btn-pequeño btn-logout">Salir</a>
+                </div>
+            </div>
+        </nav>
 
+        <div class="menu-lateral">
+            <ul class="menu-lista">
+                <li><a href="{{ url_for('dashboard') }}" class="menu-item">🏠 Inicio</a></li>
+                <li><a href="{{ url_for('cuestionarios') }}" class="menu-item">📝 Cuestionarios</a></li>
+                <li><a href="{{ url_for('comunidad') }}" class="menu-item">💬 Comunidad</a></li>
+                <li><a href="{{ url_for('reels') }}" class="menu-item activo">🎬 Reels</a></li>
+                <li><a href="{{ url_for('biblioteca') }}" class="menu-item">📚 Biblioteca</a></li>
+                <li><a href="{{ url_for('favoritos') }}" class="menu-item">⭐ Favoritos</a></li>
+            </ul>
+        </div>
+
+        <main class="contenido-principal">
+            <h2>🎬 Reels Educativos</h2>
+
+            <div class="acciones-seccion">
+                <button class="btn btn-primario">📹 Subir Video</button>
+                <button class="btn btn-secundario">🎥 Grabar Video</button>
+            </div>
+
+            <div class="filtros-reels">
+                <button class="btn-filtro activo">Todos</button>
+                <button class="btn-filtro">Matemáticas</button>
+                <button class="btn-filtro">Historia</button>
+                <button class="btn-filtro">Ciencias</button>
+                <button class="btn-filtro">Español</button>
+            </div>
+
+            <div class="reels-grid">
+                {% for reel in reels %}
+                <div class="reel-card">
+                    <div class="reel-video">📹 Video</div>
+                    <h3>{{ reel.titulo }}</h3>
+                    <p>{{ reel.descripcion }}</p>
+                    <p class="categoria-reel">{{ reel.categoria }}</p>
+                    <div class="botones-reel">
+                        <button class="btn btn-pequeño">▶️ Ver</button>
+                        <button class="btn btn-pequeño">⭐ Favorito</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
