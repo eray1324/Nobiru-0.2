@@ -2,26 +2,71 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Resultado</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado | Nobiru</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body class="modo-oscuro">
+<body>
 
-<div class="contenido-principal">
+<div class="resultado-overlay">
 
-    <h2>🎉 Resultado</h2>
+    <div class="resultado-modal">
 
-    <h3>✅ Aciertos: {{ aciertos }}</h3>
+        <div class="resultado-icono">
+            🎉
+        </div>
 
-    <h3>❌ Errores: {{ errores }}</h3>
+        <h1>Cuestionario completado</h1>
 
-    <h3>⭐ Puntos obtenidos: {{ puntos }}</h3>
+        <p class="resultado-subtitulo">
+            Estos son tus resultados
+        </p>
 
-    <a href="{{ url_for('cuestionarios') }}"
-       class="btn btn-primario">
+        <div class="resultado-grid">
 
-       Volver
+            <div class="resultado-card">
+                <h2>{{ aciertos }}</h2>
+                <span>Aciertos</span>
+            </div>
 
-    </a>
+            <div class="resultado-card">
+                <h2>{{ errores }}</h2>
+                <span>Errores</span>
+            </div>
+
+            <div class="resultado-card">
+                <h2>{{ puntos }}</h2>
+                <span>Puntos</span>
+            </div>
+
+        </div>
+
+        <div class="resultado-info">
+
+            <div class="resultado-badge">
+                🏅 {{ usuario.insignia|upper }}
+            </div>
+
+            <div class="resultado-level">
+                ⭐ Nivel {{ usuario.nivel }}
+            </div>
+
+        </div>
+
+        <div class="resultado-acciones">
+
+            <a href="{{ url_for('dashboard') }}" class="btn-principal">
+                Volver al inicio
+            </a>
+
+            <a href="{{ url_for('cuestionarios') }}" class="btn-secundario">
+                Resolver otro cuestionario
+            </a>
+
+        </div>
+
+    </div>
 
 </div>
 
