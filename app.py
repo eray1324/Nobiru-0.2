@@ -176,6 +176,49 @@ FRASES_DIARIAS = [
     "Tu futuro comienza con lo que haces hoy.",
     "La disciplina vence a la motivación."
 ]
+BADGES = [
+    "bronce",
+    "plata",
+    "oro",
+    "platino",
+    "diamante",
+    "rubi",
+    "esmeralda",
+    "zafiro",
+    "amatista",
+    "obsidiana"
+]
+
+def calcular_insignia(puntos):
+
+    if puntos >= 10000:
+        return "obsidiana"
+
+    elif puntos >= 8000:
+        return "amatista"
+
+    elif puntos >= 6500:
+        return "zafiro"
+
+    elif puntos >= 5000:
+        return "esmeralda"
+
+    elif puntos >= 4000:
+        return "rubi"
+
+    elif puntos >= 3000:
+        return "diamante"
+
+    elif puntos >= 2000:
+        return "platino"
+
+    elif puntos >= 1200:
+        return "oro"
+
+    elif puntos >= 600:
+        return "plata"
+
+    return "bronce"
 
 PREGUNTAS_DEMO = [
     {
@@ -602,9 +645,23 @@ def calificar_cuestionario(id):
 
     puntos = aciertos * 10 - errores * 2
 
-    usuario = Usuario.query.get(session['usuario_id'])
+    usuario = Usuario.query.get(
+        session['usuario_id']
+    )
 
     usuario.puntos += puntos
+
+    if usuario.puntos < 0:
+        usuario.puntos = 0
+
+    usuario.insignia = calcular_insignia(
+        usuario.puntos
+    )
+
+    usuario.nivel = max(
+        1,
+        (usuario.puntos // 100) + 1
+    )
 
     resultado = Resultado(
         usuario_id=usuario.id,
