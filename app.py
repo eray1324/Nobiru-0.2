@@ -13,6 +13,8 @@ load_dotenv()
 
 # Crear la aplicación Flask
 app = Flask(__name__)
+UPLOAD_FOLDER = 'static/uploads/documentos'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Configuración de la base de datos
 database_path = os.path.join(os.path.dirname(__file__), 'database', 'nobiru.db')
@@ -376,6 +378,16 @@ def favoritos():
     favoritos_usuario = Favorito.query.filter_by(usuario_id=usuario.id).all()
     return render_template('favoritos.html', favoritos=favoritos_usuario)
 
+@app.route('/descargar/<nombre_archivo>')
+@login_requerido
+def descargar_archivo(nombre_archivo):
+
+    return send_from_directory(
+        app.config['UPLOAD_FOLDER'],
+        nombre_archivo,
+        as_attachment=True
+    )
+
 
 @app.route('/api/usuario')
 @app.route('/api/publicar-post', methods=['POST'])
@@ -398,6 +410,36 @@ def publicar_post():
         'success': True
     })
 
+@app.route('/api/subir-archivo', methods=['POST'])
+@login_requerido
+def subir_archivo():
+
+    if 'archivo' not in request.files:
+        return jsonify({'error': 'No se recibió ningún archivo'}), 400
+
+    archivo = request.files['archivo']
+
+    if archivo.filename == '':
+        return jsonify({'error': 'Archivo vacío'}), 400
+
+    nombre_seguro = secure_filename(archivo.filename)
+
+    ruta = os.path.join(app.config['UPLOAD_FOLDER'], nombre_seguro)
+    archivo.save(ruta)
+
+    nuevo_archivo = Biblioteca(
+        titulo=request.form.get('titulo'),
+        descripcion=request.form.get('descripcion'),
+        autor=session['nombre_usuario'],
+        tipo='PDF',
+        url_archivo=nombre_seguro,
+        usuario_id=session['usuario_id']
+    )
+
+    db.session.add(nuevo_archivo)
+    db.session.commit()
+
+    return jsonify({'success': True})
 
 # ============================================
 # CREAR BASE DE DATOS Y DATOS INICIALES
