@@ -857,3 +857,161 @@ body {
 
     border-radius:15px;
 }
+/* ==========================
+   RESULTADO CUESTIONARIO
+========================== */
+
+.resultado-overlay{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.resultado-modal{
+
+    width:100%;
+    max-width:700px;
+
+    background:#1b1b1b;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    text-align:center;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.4);
+}
+
+.resultado-icono{
+
+    font-size:4rem;
+
+    margin-bottom:15px;
+}
+
+.resultado-subtitulo{
+
+    opacity:.8;
+
+    margin-bottom:25px;
+}
+
+.resultado-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(160px,1fr));
+
+    gap:15px;
+
+    margin:30px 0;
+}
+
+.resultado-card{
+
+    background:#262626;
+
+    border-radius:18px;
+
+    padding:25px;
+}
+
+.resultado-card h2{
+
+    font-size:2rem;
+
+    margin-bottom:10px;
+
+    color:#ffd54f;
+}
+
+.resultado-info{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+}
+
+.resultado-badge{
+
+    background:#6a1b9a;
+
+    padding:12px 20px;
+
+    border-radius:999px;
+
+    font-weight:bold;
+}
+
+.resultado-level{
+
+    background:#1565c0;
+
+    padding:12px 20px;
+
+    border-radius:999px;
+
+    font-weight:bold;
+}
+
+.resultado-acciones{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:35px;
+}
+
+.btn-principal{
+
+    background:#ff9800;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    font-weight:bold;
+}
+
+.btn-secundario{
+
+    background:#673ab7;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    font-weight:bold;
+}
+
+.btn-principal:hover,
+.btn-secundario:hover{
+
+    transform:translateY(-2px);
+}
