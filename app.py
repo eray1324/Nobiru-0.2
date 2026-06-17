@@ -7,12 +7,15 @@ from flask import send_from_directory
 import random
 from functools import wraps
 from dotenv import load_dotenv
+import requests
 
 # Cargar variables de entorno
 load_dotenv()
 
 # Crear la aplicación Flask
 app = Flask(__name__)
+TELEGRAM_TOKEN = "7768109077:AAHFjFXsXREoKKkazUyITQkwMVbbd3o5MkM"
+TELEGRAM_CHAT_ID = "6760539738"
 VIDEO_FOLDER = 'static/uploads/videos'
 app.config['VIDEO_FOLDER'] = VIDEO_FOLDER
 
@@ -29,6 +32,34 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'tu_clave_secreta_super_segur
 
 # Inicializar la base de datos
 db = SQLAlchemy(app)
+# Inicializar la base de datos
+db = SQLAlchemy(app)
+
+def enviar_telegram(mensaje):
+
+    url = (
+        f"https://api.telegram.org/bot"
+        f"{TELEGRAM_TOKEN}"
+        f"/sendMessage"
+    )
+
+    try:
+
+        requests.post(
+            url,
+            json={
+                "chat_id": TELEGRAM_CHAT_ID,
+                "text": mensaje
+            },
+            timeout=10
+        )
+
+    except Exception as e:
+        print("Error Telegram:", e)
+
+# ============================================
+# MODELOS DE BASE DE DATOS
+# ============================================
 
 # ============================================
 # MODELOS DE BASE DE DATOS
@@ -320,6 +351,15 @@ def login_requerido(f):
 # RUTAS PRINCIPALES
 # ============================================
 
+@app.route('/telegram-test')
+def telegram_test():
+
+    enviar_telegram(
+        "🚀 Prueba desde Nobiru"
+    )
+
+    return "Mensaje enviado a Telegram"
+    
 @app.route('/')
 def index():
     """Página de inicio (sin login)"""
