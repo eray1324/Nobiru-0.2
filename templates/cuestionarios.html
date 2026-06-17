@@ -86,5 +86,56 @@
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script>
+
+function abrirModalCuestionario(){
+
+    document.getElementById('modalCuestionario').style.display = 'flex';
+
+}
+
+function cerrarModalCuestionario(){
+
+    document.getElementById('modalCuestionario').style.display = 'none';
+
+}
+
+async function crearCuestionario(){
+
+    const titulo = document.getElementById('tituloQuiz').value;
+    const descripcion = document.getElementById('descripcionQuiz').value;
+    const categoria = document.getElementById('categoriaQuiz').value;
+
+    const response = await fetch('/api/crear-cuestionario', {
+
+        method:'POST',
+
+        headers:{
+            'Content-Type':'application/json'
+        },
+
+        body: JSON.stringify({
+            titulo,
+            descripcion,
+            categoria
+        })
+
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+
+        alert('Cuestionario creado');
+
+        location.reload();
+
+    }
+
+}
+
+</script>
+    
 </body>
 </html>
