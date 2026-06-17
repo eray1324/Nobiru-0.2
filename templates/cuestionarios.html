@@ -126,12 +126,12 @@
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
+    let cuestionarioActual = null;
+    
     <script>
 function cerrarModalCuestionario(){
 
     document.getElementById('modalCuestionario').style.display = 'none';
-
-    let cuestionarioActual = null;
 }
 function abrirModalCuestionario(){
 
@@ -169,7 +169,7 @@ if(data.success){
 
     cuestionarioActual = data.cuestionario_id;
 
-    document.getElementById('modalCrearCuestionario').style.display = 'none';
+   document.getElementById('modalCuestionario').style.display = 'none';
 
     document.getElementById('modalAgregarPregunta').style.display = 'flex';
 
